@@ -2,48 +2,48 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Professional AR Viewer</title>
-
-<script type="module"
-src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
-</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image AR</title>
 
 <style>
 body{
 margin:0;
 background:black;
+color:white;
+text-align:center;
+font-family:Arial;
 }
 
-model-viewer{
-width:100vw;
-height:100vh;
-background:black;
+img{
+max-width:90%;
+margin-top:40px;
+border-radius:12px;
 }
 </style>
+
+<script>
+function isMobile(){
+return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+window.onload=function(){
+
+// Desktop fallback
+if(!isMobile()){
+document.body.innerHTML =
+"<h2>Preview Mode</h2>" +
+"<p>AR camera works only on supported mobile browsers.</p>" +
+"<img src='/uploads/{{img}}'>";
+}
+
+};
+</script>
+
 </head>
 
 <body>
 
-<model-viewer
-src="/uploads/{{file}}"
-ar
-ar-modes="webxr scene-viewer quick-look"
-camera-controls
-auto-rotate
-shadow-intensity="1"
-exposure="1"
-environment-image="neutral"
-camera-orbit="0deg 75deg 105%"
-min-camera-orbit="auto auto 50%"
-max-camera-orbit="auto auto 200%">
-
-<button slot="ar-button"
-style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
-padding:12px 20px;border:none;border-radius:8px;background:#00c3ff;color:white;">
-🚀 View in AR
-</button>
-
-</model-viewer>
+<h2>Opening AR Camera...</h2>
 
 </body>
 </html>
