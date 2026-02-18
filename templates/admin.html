@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Upload AR Product</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<h2>Upload Product</h2>
+
+<form action="/upload-model" method="POST" enctype="multipart/form-data">
+
+Product Name:
+<input type="text" name="name" required><br><br>
+
+Type:
+<select name="type">
+<option value="model">3D Model</option>
+<option value="image">Image AR</option>
+</select><br><br>
+
+File:
+<input type="file" name="file" required><br><br>
+
+<button>Upload</button>
+
+</form>
+
+<a href="/">Back</a>
+
+</body>
+</html>

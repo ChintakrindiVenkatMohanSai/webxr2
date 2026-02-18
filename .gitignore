@@ -1,0 +1,5 @@
+venv/
+uploads/
+products.db
+__pycache__/
+*.pyc

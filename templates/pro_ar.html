@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Professional AR Viewer</title>
+
+<script type="module"
+src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+</script>
+
+<style>
+body{
+margin:0;
+background:black;
+font-family:Arial;
+}
+
+model-viewer{
+width:100vw;
+height:100vh;
+background:black;
+}
+
+/* AR Button */
+.ar-btn{
+position:absolute;
+bottom:30px;
+left:50%;
+transform:translateX(-50%);
+padding:14px 24px;
+border:none;
+border-radius:10px;
+background:#00c3ff;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+/* Loading indicator */
+#loading{
+position:absolute;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+color:white;
+background:#0008;
+padding:10px 20px;
+border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="loading">Loading AR Model...</div>
+
+<model-viewer
+src="/uploads/{{file}}"
+ar
+ar-modes="webxr scene-viewer quick-look"
+camera-controls
+auto-rotate
+shadow-intensity="1"
+environment-image="neutral"
+exposure="1"
+onload="document.getElementById('loading').style.display='none'">
+
+<button class="ar-btn" slot="ar-button">
+🚀 View in AR
+</button>
+
+</model-viewer>
+
+</body>
+</html>
