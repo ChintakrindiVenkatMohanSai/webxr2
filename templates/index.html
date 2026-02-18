@@ -1,107 +1,109 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>AR Product Viewer</title>
+    <title>AR Product Viewer</title>
 
-<script type="module"
-src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
-</script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+    </script>
 
-<link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/style.css">
 
-<style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:linear-gradient(135deg,#0f172a,#020617);
-    color:white;
-    text-align:center;
-}
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(135deg, #0f172a, #020617);
+            color: white;
+            text-align: center;
+        }
 
-h1{padding:20px;}
+        h1 {
+            padding: 20px;
+        }
 
-.product{
-    margin:30px auto;
-    padding:20px;
-    width:90%;
-    max-width:600px;
-    background:#1e293b;
-    border-radius:16px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.6);
-}
+        .product {
+            margin: 30px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            background: #1e293b;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
 
-model-viewer{
-    width:100%;
-    height:420px;
-    background:black;
-    border-radius:12px;
-}
+        model-viewer {
+            width: 100%;
+            height: 420px;
+            background: black;
+            border-radius: 12px;
+        }
 
-button{
-    padding:12px 24px;
-    border:none;
-    border-radius:8px;
-    background:#00c3ff;
-    color:white;
-    font-size:16px;
-    margin:10px;
-    cursor:pointer;
-}
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: #00c3ff;
+            color: white;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
 
-button:hover{
-    transform:scale(1.05);
-    background:#0891b2;
-}
-</style>
+        button:hover {
+            transform: scale(1.05);
+            background: #0891b2;
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>📱 AR Product Viewer</h1>
-<a href="/admin">Upload Product</a>
+    <h1>📱 AR Product Viewer</h1>
+    <a href="/admin">Upload Product</a>
 
-{% for p in products %}
-<div class="product">
+    {% for p in products %}
+    <div class="product">
 
-<h2>{{p[1]}}</h2>
+        <h2>{{p[1]}}</h2>
 
-{% if p[2] %}
+        {% if p[2] %}
 
-    {% if p[3]=='model' %}
-    <!-- 3D AR -->
-    <model-viewer
-    src="/uploads/{{p[2]}}"
-    ar
-    ar-modes="webxr scene-viewer quick-look"
-    camera-controls
-    auto-rotate>
+        {% if p[3]=='model' %}
+        <!-- 3D AR -->
+        <model-viewer src="/uploads/{{p[2]}}" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate>
 
-    <button slot="ar-button">🚀 View in AR</button>
-    </model-viewer>
+            <button slot="ar-button">🚀 View in AR</button>
+        </model-viewer>
 
-    <br>
+        <br>
 
-    <a href="/pro-ar/{{p[2]}}">
-        <button>Professional AR 🚀</button>
-    </a>
+        <a href="/pro-ar/{{p[2]}}">
+            <button>Professional AR 🚀</button>
+        </a>
 
-    {% elif p[3]=='image' %}
-    <!-- Image AR -->
-    <a href="/image-ar/{{p[2]}}">
-        <button>📷 Start Image AR</button>
-    </a>
+        {% elif p[3]=='image' %}
+        <!-- Image AR -->
+        <model-viewer src="/uploads/{{p[2]}}" ar ar-modes="webxr scene-viewer quick-look" camera-controls>
 
-    {% endif %}
+            <button slot="ar-button">
+                📷 View Image AR
+            </button>
 
-{% else %}
-<p style="color:red;">File missing</p>
-{% endif %}
+        </model-viewer>
 
-</div>
-{% endfor %}
+        {% endif %}
+
+        {% else %}
+        <p style="color:red;">File missing</p>
+        {% endif %}
+
+    </div>
+    {% endfor %}
 
 </body>
+
 </html>
