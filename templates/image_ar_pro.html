@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Image AR</title>
+
+<title>Image AR Camera</title>
 
 <style>
 body{
@@ -14,29 +15,45 @@ text-align:center;
 font-family:Arial;
 }
 
+video{
+width:100%;
+height:100vh;
+object-fit:cover;
+}
+
 img{
-max-width:90%;
-margin-top:40px;
-border-radius:12px;
+position:absolute;
+bottom:50px;
+left:50%;
+transform:translateX(-50%);
+width:250px;
+z-index:10;
 }
 </style>
 
 <script>
-function isMobile(){
-return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+async function startCamera(){
+try{
+const stream = await navigator.mediaDevices.getUserMedia({
+video:{ facingMode:"environment" }
+});
+
+let video=document.createElement("video");
+video.srcObject=stream;
+video.autoplay=true;
+document.body.appendChild(video);
+
+// overlay uploaded image
+let overlay=document.createElement("img");
+overlay.src="/uploads/{{img}}";
+document.body.appendChild(overlay);
+
+}catch(e){
+document.body.innerHTML="<h2>Camera blocked or unsupported</h2>";
+}
 }
 
-window.onload=function(){
-
-// Desktop fallback
-if(!isMobile()){
-document.body.innerHTML =
-"<h2>Preview Mode</h2>" +
-"<p>AR camera works only on supported mobile browsers.</p>" +
-"<img src='/uploads/{{img}}'>";
-}
-
-};
+window.onload=startCamera;
 </script>
 
 </head>
